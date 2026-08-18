@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "llm-rag"
+version = "0.1.0"
+description = ""
+authors = ["Kevin Deng <kevindeng5696@gmail.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+ollama = "^0.6.2"
+numpy = "^2.5.2"
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
