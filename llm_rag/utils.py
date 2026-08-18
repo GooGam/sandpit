@@ -19,7 +19,8 @@ def search_index(query_embedding, index, chunks, top_k=2):
     # since embeddings are normalized, the dot product is equivalent to cosine similarity
     similarities = [np.dot(query_embedding, chunk_emb) for chunk_emb in index]
     # argsort returns the indices that would sort the array.
-    # by default, it sorts in ascending order
+    # by default, it sorts in ascending order 
+    # (larger cosine similarity means more similar, so we want the last top_k indices).
     # so we take the last top_k indices and reverse them for descending order.
     top_indices = np.argsort(similarities)[-top_k:][::-1]
     return [chunks[i] for i in top_indices]
