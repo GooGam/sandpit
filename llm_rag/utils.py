@@ -1,6 +1,7 @@
 import numpy as np
 import ollama
 import pandas as pd
+import pypdf as pp
 
 def read_xls_to_text(file_path):
     """Read .xls file and convert content to a single string."""
@@ -12,6 +13,16 @@ def read_txt_to_text(file_path):
     """Read .txt file and convert content to a single string."""
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
+
+def read_pdf_to_text(file_path):
+    """Read .pdf file and convert content to a single string."""
+    text = ""
+    pdf_reader = pp.PdfReader(file_path)
+
+    for i, page in enumerate(pdf_reader.pages):
+        text += page.extract_text()
+
+    return text 
 
 def get_embedding(text):
     """Generate embedding using Ollama."""
@@ -36,7 +47,7 @@ def read_xls_to_chunks(file_path):
         chunks.append(chunk_content)
     return chunks
 
-def search_index(query_embedding, index, chunks, top_k=2):
+def search_index(query_embedding, index, chunks, top_k=10):
     """Find top_k chunks based on cosine similarity."""
     # dot product of query embedding and each chunk embedding
     # since embeddings are normalized, the dot product is equivalent to cosine similarity
@@ -52,7 +63,7 @@ def generate_answer(query, context):
     """Generate grounded answer using Gemma 3."""
     # print(f"DEBUG: context: {context} ")
     prompt = f"Context: {context}\n\nQuestion: {query}\n\nAnswer:"
-    response = ollama.chat(model="llama3.2:latest", messages=[{'role': 'user', 'content': prompt}])
+    response = ollama.chat(model="gemma3:1b", messages=[{'role': 'user', 'content': prompt}])
     # The ollama library returns a complex JSON structure.
     # Extract just the text of the actual answer, stripping away technical metadata 
     # (like the model name, timing, or token usage statistics).
