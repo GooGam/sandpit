@@ -1,0 +1,16 @@
+[project]
+name = "mcp_pra"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Kevin Deng",email = "kevindeng5696@gmail.com"}
+]
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "fastmcp (>=3.4.7,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
