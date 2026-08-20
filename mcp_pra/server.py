@@ -42,6 +42,7 @@ def complete_task(task_id: int) -> dict:
 
 
 # --- Resource: list_tasks ---
+@mcp.tool()
 @mcp.resource("tasks://all") # URI the AI uses to request this resource
 def list_tasks() -> str:
     """Returns all tasks as a formatted string."""
